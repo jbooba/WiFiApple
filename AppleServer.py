@@ -189,7 +189,7 @@ def background_loop():
 
                 if "double play" in desc_lower or "triple play" in desc_lower:
                     print("[SKIP] This was a double or triple play — not a hit.")
-                elif re.search(r'\b(single|double|triple|homer)\b', desc_lower):
+                elif re.search(r'\b(singles|doubles|triples|homers)\b', desc_lower):
                     is_hit = True
 
                 if batting_team_id == monitored_team_id and is_hit:
