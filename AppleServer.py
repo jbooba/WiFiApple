@@ -9,7 +9,7 @@ import requests
 
 app = Flask(__name__)
 
-monitored_team_id = 121  # Default team (San Francisco Giants)
+monitored_team_id = 121  # Default team (New York Mets)
 current_game_id = None
 seen_plays = set()
 last_seen_status = ""
