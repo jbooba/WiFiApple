@@ -6,7 +6,7 @@ A Flask web server that uses the MLB Stats API to detect base hits, home runs, a
 # Disclaimer: This was 99% "vibe coded" by chatGPT. A ton of research, time and tweaking went into it, but I'd be lying if I said I "coded this myself." I did not. As such, it's probably a pretty awful implementation, but hey, it works!
 
 
-#Description
+# Description
 
 This is a horribly inefficient local web server that monitors the team you set (defaults to the Mets) and sends an Arduino trigger event when it detects a base hit, home run, or Win. For my purposes, this was set up to trigger a linear actuator, controlled by an Arduino Nano ESP32, which would raise and lower my own Home Run Apple that I could keep on my desk. 
 
