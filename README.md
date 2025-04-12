@@ -19,7 +19,7 @@ Has checks for doubleheaders, postponed games, delayed games, etc. It should rel
 When the game status changes from "In-Progress" to "Game Over," the script will find the final score and determine if the monitored team won. If it did, a trigger will be sent. 
 
 
-To use: install Flask and [https://github.com/toddrob99/MLB-StatsAPI](the MLB Stats API from Todd Rob)
+To use: install [Flask](https://github.com/pallets/flask) and the [MLB Stats API from Todd Rob](https://github.com/toddrob99/MLB-StatsAPI)
 
 run the script from the command line. it will launch a web page on localhost:5000
 
