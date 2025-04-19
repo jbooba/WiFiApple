@@ -9,7 +9,7 @@ import requests
 
 app = Flask(__name__)
 
-monitored_team_id = 121  # Default team (New York Mets)
+monitored_team_id = 121  # Default team (San Francisco Giants)
 current_game_id = None
 seen_plays = set()
 last_seen_status = ""
@@ -78,8 +78,9 @@ def get_latest_game_id(team_id):
         if doubleheader == 'S' and gid.endswith('-2'):
             print("[INFO] Prioritizing doubleheader Game 2")
             doubleheader_game2 = (game_id, status)
-        elif status == "In Progress":
+        elif status == "In Progress" or status.startswith("Manager challenge") or status.startswith("Umpire review"):
             in_progress_game = (game_id, status)
+
         elif status == "Game Over":
             game_over_game = (game_id, status)
         elif status == "Postponed":
@@ -110,6 +111,17 @@ def trigger_actuator():
     global last_triggered
     print("[ACTUATOR] Triggering actuator...")
     last_triggered = datetime.utcnow()
+    
+def should_skip_event(play):
+    """Return True if play is a non-at-bat filler event that should not be marked as seen."""
+    event = play.get("result", {}).get("event", "").lower()
+    filler_events = {
+        "batter timeout", "mound visit", "injury delay", "manager visit",
+        "challenge", "review", "umpire review", "pitching substitution",
+        "warmup", "defensive switch", "offensive substitution", "throwing error",
+        "passed ball", "wild pitch"
+    }
+    return event in filler_events
 
 def background_loop():
     global current_game_id, seen_plays, last_seen_status
@@ -189,7 +201,7 @@ def background_loop():
 
                 if "double play" in desc_lower or "triple play" in desc_lower:
                     print("[SKIP] This was a double or triple play — not a hit.")
-                elif re.search(r'\b(singles|doubles|triples|homers)\b', desc_lower):
+                elif re.search(r'\b(singles?|doubles?|triples?|homers?)\b', desc_lower):
                     is_hit = True
 
                 if batting_team_id == monitored_team_id and is_hit:
@@ -199,7 +211,12 @@ def background_loop():
                 else:
                     print("[SKIP] Not a valid hit by monitored team")
 
-                seen_plays.add(idx)
+                if not should_skip_event(play):
+                    seen_plays.add(idx)
+                else:
+                    print("[SKIP] Filler event (timeout, mound visit, etc) — not marking as seen.")
+
+
         except Exception as e:
             print(f"[ERROR] Fetching or processing play data failed: {e}")
         
