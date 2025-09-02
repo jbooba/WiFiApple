@@ -8,7 +8,7 @@ A Flask web server that uses the MLB Stats API to detect base hits, home runs, a
 
 # Description
 
-This is a horribly inefficient local web server that monitors the team you set (defaults to the Mets) and sends an Arduino trigger event when it detects a base hit, home run, or Win. For my purposes, this was set up to trigger a linear actuator, controlled by an Arduino Nano ESP32, which would raise and lower my own Home Run Apple that I could keep on my desk. 
+This is a horribly inefficient local web server that monitors the team you set (defaults to the Mets) and sends an Arduino trigger event when it detects a home run or Win. For my purposes, this was set up to trigger a linear actuator, controlled by an Arduino Nano ESP32, which would raise and lower my own Home Run Apple that I could keep on my desk. 
 
 - It notes the start time of the server so as to not accidentally trigger for any hits that may have occurred prior to the start of monitoring.
 
