@@ -1,6 +1,6 @@
 # WiFiApple
 
-A Flask web server that uses the MLB Stats API to detect base hits, home runs, and wins for the team you choose to monitor, and sends an Arduino trigger upon detection. 
+A Flask web server that uses the MLB Stats API to detect home runs and wins for the team you choose to monitor, and sends an Arduino trigger upon detection. 
 
 
 # Disclaimer: This was 99% "vibe coded" by chatGPT. A ton of research, time and tweaking went into it, but I'd be lying if I said I "coded this myself." I did not. As such, it's probably a pretty awful implementation, but hey, it works!
